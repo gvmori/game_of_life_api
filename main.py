@@ -92,7 +92,7 @@ async def _run_board_iterations(board_id: str, num_iters: int, exception_on_inco
 
     board = Board(**board_dict, max_iterations=MAX_ALLOWED_ITERATIONS)
     if num_iters == 0:
-        return {"board": board.to_dict()}
+        return board.to_dict()
 
     completed_all_iterations = board.run_iterations(num_iters)
 
