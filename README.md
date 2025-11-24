@@ -8,3 +8,4 @@ TODOS:
   - potential issue where multiple simultaneous requests for the same board id could lead to confusing results
       - use locking to block simultaneous requests?
       - stricter input requirements (require starting stage, etc.)?
+  - use post instead of get, since (almost) all requests affect the stored data
