@@ -2,6 +2,7 @@
 
 from fastapi import FastAPI, HTTPException
 import uuid
+import os
 # valkey may or may not be appropriate for this use case, depending
 # on expected load, data size, persistence requirements, etc.
 import valkey
@@ -13,8 +14,11 @@ from lib.models import BoardId, BoardState
 MAX_ALLOWED_ITERATIONS = 1000
 
 app = FastAPI()
-# in production we'd want to pull connection parameters from some kind of config
-pool = valkey.ConnectionPool(host='localhost', port=6379, db=0)
+# allow overriding via environment so the app works from docker-compose
+# in production we would also use a password pulled from e.g. secrets manager
+valkey_host = os.getenv("VALKEY_HOST", "localhost")
+valkey_port = int(os.getenv("VALKEY_PORT", "6379"))
+pool = valkey.ConnectionPool(host=valkey_host, port=valkey_port, db=0)
 v = valkey.Valkey(connection_pool=pool)
 
 @app.post("/boards/", response_model=BoardId)
