@@ -4,7 +4,7 @@
 A simple API implementing the Game of Life.
 
 ## Usage:
-Clone repo
+Clone repo  
 Run "docker compose up" in game_of_life_api directory
 
 ## API
